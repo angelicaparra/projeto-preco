@@ -12,7 +12,7 @@ def coletar_com_selenium():
     
     url = "https://www.cepea.esalq.usp.br/br/indicador/boi-gordo.aspx"
 
-    # Configurações para o Chrome abrir para passar pela segunrança
+    # Configurações para o Chrome abrir para passar pela segurança [Cloudflare]
     chrome_options = Options()
     chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
