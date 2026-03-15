@@ -1,16 +1,42 @@
-# 🥜 Machine Learning aplicado para Região Oeste Paulista: Predição de Preço (Alta Paulista)
+📈 Monitoramento Agrícola - Foco Alta Paulista
+Este projeto automatiza a coleta, processamento e visualização de preços de commodities agrícolas (foco inicial: Boi Gordo) utilizando dados reais do CEPEA/USP. O objetivo é um estudo e aperfeiçoamento em ferramentas de análise.
 
-Este projeto foi desenvolvido para analisar e prever a produtividade e cotação do **AGRO** na região de Adamantina-SP. 
+🚀 Funcionalidades
+Web Scraping: Captura de dados em tempo real utilizando Selenium e Chrome WebDriver, configurado para contornar bloqueios de segurança.
 
-## 🚀 Objetivo
-Utilizar Web Scraping para coletar dados reais de mercado e cruzar com variáveis climáticas locais para fornecer insights estratégicos para Alta Paulista.
+Data Cleaning: Tratamento, renomeação de colunas e normalização de tipos de dados (float e datetime) com Pandas.
 
-## 🛠️ Tecnologias Utilizadas
-- **Linguagem:** Python 3.12
-- **Ambiente:** Venv (Virtual Environment)
-- **Bibliotecas:** Pandas, Scikit-Learn, BeautifulSoup4, Matplotlib.
+Data Visualization: Geração de gráficos de tendência automatizados com Matplotlib e Seaborn.
 
-## 📈 Pipeline do Projeto
-1. **Extração:** Scraping de dados de cotações. [Fontes a definir durante o desenvolvimento]
-2. **Engenharia de Dados:** Tratamento de séries temporais e dados de chuva (INMET).
-3. **Modelagem:** Regressão para previsão por hectare.
+🛠️ Tecnologias Utilizadas
+Python 3.x
+
+Pandas (Manipulação de dados)
+
+Selenium (Automação de navegador)
+
+Matplotlib/Seaborn (Visualização)
+
+Webdriver Manager (Gestão de drivers)
+
+📁 Estrutura do Repositório
+scraper.py: O "robô" que acessa o site e extrai o HTML.
+
+processor.py: O script que limpa o CSV e prepara para análise.
+
+visualizer.py: O script que gera a imagem do gráfico.
+
+data/: Pasta onde ficam os arquivos de dados (CSV).
+
+exports/: Pasta onde o gráfico final é salvo.
+
+🔧 Como Testar o Projeto
+Clone o repositório.
+
+Crie um ambiente virtual: python -m venv venv.
+
+Instale as dependências: pip install -r requirements.txt.
+
+Execute os scripts na ordem: scraper.py -> processor.py -> visualizer.py.
+
+Desenvolvido por Angélica Parra
