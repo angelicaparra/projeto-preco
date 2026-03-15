@@ -5,36 +5,35 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+import io
 
 def coletar_com_selenium():
     print("Iniciando coleta com Selenium (Abrindo navegador)...")
     
-    url = "https://www.cepea.esalq.usp.br/br/indicador/amendoim.aspx"
-    
-    # Configurações para o Chrome não aparecer (rodar em segundo plano)
+    url = "https://www.cepea.esalq.usp.br/br/indicador/boi-gordo.aspx"
+
+    # Configurações para o Chrome abrir para passar pela segunrança
     chrome_options = Options()
-    chrome_options.add_argument("--headless") # Roda sem abrir a janela
+    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
     
     try:
-        # Inicializa o navegador
         service = Service(ChromeDriverManager().install())
         driver = webdriver.Chrome(service=service, options=chrome_options)
-        
         driver.get(url)
-        time.sleep(5) # Espera 5 segundos para o site carregar tudo
-        
+        time.sleep(5)
        
         html = driver.page_source
-        
-        
-        tabelas = pd.read_html(html)
-        driver.quit() # Fecha o navegador
+
+        tabelas = pd.read_html(io.StringIO(html))
+        driver.quit() 
 
         if tabelas:
             df_precos = tabelas[0]
             if not os.path.exists('data'):
                 os.makedirs('data')
-            df_precos.to_csv('data/precos_amendoim_bruto.csv', index=False)
+            df_precos.to_csv('data/boi_gordo.csv', index=False, encoding='utf-8-sig')
             print("✅ SUCESSO! O arquivo CSV foi criado na pasta /data")
             return df_precos.head()
         
