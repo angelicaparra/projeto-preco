@@ -8,3 +8,4 @@ seaborn
 lxml
 selenium
 webdriver-manager
+seaborn
