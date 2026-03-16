@@ -54,11 +54,11 @@ O resultado final é um dashboard consolidado que permite a visualização de te
    git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
 
 2. Instale as dependências:
-pip install pandas seaborn matplotlib
+    ```bash
+    pip install pandas seaborn matplotlib
 
 3. Rode o processamento e a visualização:
-
-python processor.py && python visualizer.py
+    ```bash
+    python processor.py && python visualizer.py
 
 💡 Projeto desenvolvido como parte do portfólio de Análise de Dados.
-
