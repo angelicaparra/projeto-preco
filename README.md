@@ -1,42 +1,64 @@
-📈 Monitoramento Agrícola - Foco Alta Paulista
-Este projeto automatiza a coleta, processamento e visualização de preços de commodities agrícolas (foco inicial: Boi Gordo) utilizando dados reais do CEPEA/USP. O objetivo é um estudo e aperfeiçoamento em ferramentas de análise.
+# 📊 Dashboard de Inteligência de Mercado: Agronegócio (CEPEA)
 
-🚀 Funcionalidades
-Web Scraping: Captura de dados em tempo real utilizando Selenium e Chrome WebDriver, configurado para contornar bloqueios de segurança.
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
-Data Cleaning: Tratamento, renomeação de colunas e normalização de tipos de dados (float e datetime) com Pandas.
+## 🎯 Sobre o Projeto
+Este projeto foi desenvolvido para automatizar a análise de preços das principais commodities agropecuárias da região. Utilizando dados brutos do **CEPEA/Esalq-USP**, o sistema limpa, normaliza e gera um painel visual para suporte à decisão.
 
-Data Visualization: Geração de gráficos de tendência automatizados com Matplotlib e Seaborn.
+O maior diferencial deste projeto é a **capacidade de tratamento de dados heterogêneos**, transformando diferentes formatos de data e escalas de preço em uma série temporal unificada.
 
-🛠️ Tecnologias Utilizadas
-Python 3.x
+---
 
-Pandas (Manipulação de dados)
+## 🛠️ Desafios Técnicos Superados
 
-Selenium (Automação de navegador)
+Na etapa de **ETL (Extract, Transform, Load)**, foram implementadas soluções para:
 
-Matplotlib/Seaborn (Visualização)
+* **Normalização de Séries Temporais**: 
+    * Conversão de datas semanais (Etanol) e mensais em português (Leite, ex: `jan/26`) para objetos `datetime` padronizados.
+* **Ajuste Dinâmico de Escala**: 
+    * Correção de erros de precisão decimal onde valores eram lidos como inteiros (ex: convertendo `34660` para `R$ 346,60`).
+* **Filtro Geográfico Inteligente**: 
+    * Seleção automática de dados de **São Paulo** e microrregiões específicas (como o polo avícola de **Bastos/SP**).
 
-Webdriver Manager (Gestão de drivers)
+---
 
-📁 Estrutura do Repositório
-scraper.py: O "robô" que acessa o site e extrai o HTML.
+## 📈 Resultados: Painel de Monitoramento
 
-processor.py: O script que limpa o CSV e prepara para análise.
+O resultado final é um dashboard consolidado que permite a visualização de tendências mesmo com produtos de diferentes grandezas de valor.
 
-visualizer.py: O script que gera a imagem do gráfico.
+> [!TIP]
+> **Insights do Painel:** Observe as flutuações de preços no primeiro trimestre de 2026, com o Etanol e o Boi Gordo apresentando correlação em seus períodos de pico.
 
-data/: Pasta onde ficam os arquivos de dados (CSV).
+### Visualização do Dashboard
+![Painel Agropecuário](painel_agropecuario.png)
 
-exports/: Pasta onde o gráfico final é salvo.
+---
 
-🔧 Como Testar o Projeto
-Clone o repositório.
+## 📂 Estrutura do Repositório
 
-Crie um ambiente virtual: python -m venv venv.
+| Arquivo | Função |
+| :--- | :--- |
+| `data/` | CSVs brutos baixados do CEPEA. |
+| `processor.py` | Engine de limpeza e tratamento de dados. |
+| `visualizer.py` | Script de geração do dashboard gráfico. |
+| `data/limpos/` | Dados prontos para análise (Saída do ETL). |
 
-Instale as dependências: pip install -r requirements.txt.
+---
 
-Execute os scripts na ordem: scraper.py -> processor.py -> visualizer.py.
+## 🚀 Como Executar
 
-Desenvolvido por Angélica Parra
+1. Clone o repositório:
+   ```bash
+   git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
+
+2. Instale as dependências:
+pip install pandas seaborn matplotlib
+
+3. Rode o processamento e a visualização:
+
+python processor.py && python visualizer.py
+
+💡 Projeto desenvolvido como parte do portfólio de Análise de Dados.
+

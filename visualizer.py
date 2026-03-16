@@ -3,42 +3,47 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-def gerar_grafico():
-    caminho_arquivo = 'data/boi_gordo_limpo.csv'
-    
-    if not os.path.exists(caminho_arquivo):
-        print("❌ Arquivo limpo não encontrado! Rode o processor.py primeiro.")
-        return
-
-
-    df = pd.read_csv(caminho_arquivo)
-    df['data'] = pd.to_datetime(df['data'])
-    
-    # Ordenar os dados por data (caso venha invertido do site)
-    df = df.sort_values('data')
-
-    #estilo do grafico
+def gerar_painel():
     sns.set_theme(style="whitegrid")
-    plt.figure(figsize=(12, 6))
-
-    plot = sns.lineplot(data=df, x='data', y='preco_reais', marker='o', color='#2c3e50', linewidth=2.5)
-
-    plt.title('Tendência de Preços: Boi Gordo (CEPEA)', fontsize=16, fontweight='bold', pad=20)
-    plt.xlabel('Data da Coleta', fontsize=12)
-    plt.ylabel('Preço (R$)', fontsize=12)
+    caminho_limpos = 'data/limpos'
     
-    # Rotacionando as datas no eixo X para não ficarem amontoadas
-    plt.xticks(rotation=45)
+    produtos = {
+        'boi_gordo_limpo.csv': ('Boi Gordo', '#2ecc71', 'R$/@'),
+        'etanol_limpo.csv': ('Etanol Hidratado', '#e67e22', 'R$/Litro'),
+        'leite_limpo.csv': ('Leite (SP)', '#3498db', 'R$/Litro'),
+        'ovos_limpo.csv': ('Ovos Brancos (Bastos)', '#f1c40f', 'R$/Caixa')
+    }
 
-    # Salvando o gráfico em alta resolução
-    if not os.path.exists('exports'):
-        os.makedirs('exports')
+    fig, axes = plt.subplots(2, 2, figsize=(16, 10))
+    axes = axes.flatten() 
+
+    for i, (arquivo, info) in enumerate(produtos.items()):
+        caminho = os.path.join(caminho_limpos, arquivo)
         
+        if os.path.exists(caminho):
+            df = pd.read_csv(caminho)
+            df['data'] = pd.to_datetime(df['data'])
+            
+            # Plotagem
+            sns.lineplot(ax=axes[i], data=df, x='data', y='preco_reais', 
+                         color=info[1], marker='o', linewidth=2.5)
+            
+            # Títulos e Labels
+            axes[i].set_title(f"Tendência: {info[0]}", fontsize=14, fontweight='bold')
+            axes[i].set_ylabel(info[2])
+            axes[i].set_xlabel("")
+            
+            # Melhorar a visualização das datas no eixo X
+            plt.setp(axes[i].get_xticklabels(), rotation=30)
+
+
     plt.tight_layout()
-    plt.savefig('exports/grafico_precos.png', dpi=300)
+    plt.suptitle("Monitoramento de Preços Agropecuários", fontsize=18, y=1.02, fontweight='bold')
     
-    print("📊 GRÁFICO GERADO! Verifique a pasta 'exports/grafico_precos.png'")
+    # Salvar o resultado
+    plt.savefig('painel_agropecuario.png', bbox_inches='tight', dpi=300)
+    print("🚀 Painel gerado com sucesso: painel_agropecuario.png")
     plt.show()
 
 if __name__ == "__main__":
-    gerar_grafico()
+    gerar_painel()
